@@ -5,7 +5,7 @@
       "name": "Z-Flix Movies",
       "eyebrow": "FILMS & SÉRIES",
       "tagline": "Films et séries en streaming HD. Reprise de lecture, téléchargements hors-ligne, profils multiples et watch party.",
-      "repo": "Apnkk/z-flix-app",
+      "repo": "Apnkk/Z-FLIX-app",
       "setupAsset": "Z-FLIX-Movies-Setup",
       "exeName": "Z-Flix Movies.exe",
       "dirName": "Z-Flix Movies",
@@ -23,7 +23,6 @@
       "exeName": "Z-Flix Animes.exe",
       "dirName": "Z-Flix Animes",
       "accent": "#ff5c1a",
-      "comingSoon": true,
       "artwork": "/art/hero-anime.png",
       "icon": "/art/icon-anime.png"
     },
