@@ -23,6 +23,8 @@ export interface AppState {
   exeName?: string | null;
   dirName?: string | null;
   accent?: string | null;
+  artwork?: string | null;
+  icon?: string | null;
   comingSoon: boolean;
   placeholder: boolean;
   installed: InstalledApp | null;

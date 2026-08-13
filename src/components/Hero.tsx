@@ -9,8 +9,11 @@ interface Props {
   onTab: (t: 'overview' | 'notes') => void;
   progress: InstallProgress | null;
   busy: boolean;
+  premiumOpen: boolean;
+  onTogglePremium: () => void;
   onPrimary: () => void;
   onUninstall: () => void;
+  onOpenInstallDir: () => void;
 }
 
 const ACTION_LABEL: Record<string, string> = {
@@ -50,22 +53,47 @@ function ProgressButton({ app, progress }: { app: AppState; progress: InstallPro
   );
 }
 
-export function Hero({ app, tab, onTab, progress, busy, onPrimary, onUninstall }: Props) {
+export function Hero({
+  app,
+  tab,
+  onTab,
+  progress,
+  busy,
+  premiumOpen,
+  onTogglePremium,
+  onPrimary,
+  onUninstall,
+  onOpenInstallDir,
+}: Props) {
   const action = appAction(app);
   const accent = app.accent || '#e50914';
   const installing = progress !== null && progress.phase !== 'done' && progress.phase !== 'error';
+  const iconSrc = app.icon || (app.id === 'movies' ? '/logo.png' : null);
+  const artwork = app.artwork || null;
 
   return (
     <main className={`hero hero-${app.id}`}>
-      <div className="hero-art" aria-hidden />
+      <div
+        className="hero-art"
+        aria-hidden
+        style={artwork ? { backgroundImage: `url(${artwork})` } : undefined}
+      />
       <div className="hero-shade" aria-hidden />
 
       <nav className="hero-tabs" data-tauri-drag-region>
         <div className="tabs-pill">
-          <button className={tab === 'overview' ? 'tab tab-on' : 'tab'} onClick={() => onTab('overview')}>
+          <button
+            className={tab === 'overview' ? 'tab tab-on' : 'tab'}
+            style={tab === 'overview' ? { ['--tab-accent' as string]: accent } : undefined}
+            onClick={() => onTab('overview')}
+          >
             Aperçu
           </button>
-          <button className={tab === 'notes' ? 'tab tab-on' : 'tab'} onClick={() => onTab('notes')}>
+          <button
+            className={tab === 'notes' ? 'tab tab-on' : 'tab'}
+            style={tab === 'notes' ? { ['--tab-accent' as string]: accent } : undefined}
+            onClick={() => onTab('notes')}
+          >
             Notes de version
           </button>
         </div>
@@ -85,13 +113,13 @@ export function Hero({ app, tab, onTab, progress, busy, onPrimary, onUninstall }
               <div
                 className="hero-mark"
                 style={{
-                  background: app.id === 'anime' ? `linear-gradient(135deg, ${accent}, ${accent}66)` : '#000',
+                  background: iconSrc ? '#000' : `linear-gradient(135deg, ${accent}, ${accent}66)`,
                 }}
               >
-                {app.id === 'anime' ? (
-                  'ア'
+                {iconSrc ? (
+                  <img src={iconSrc} alt="" draggable={false} />
                 ) : (
-                  <img src="/logo.png" alt="" draggable={false} />
+                  app.name.charAt(0)
                 )}
               </div>
               <div>
@@ -121,11 +149,18 @@ export function Hero({ app, tab, onTab, progress, busy, onPrimary, onUninstall }
                 </button>
               )}
               {app.installed && !installing && (
-                <button className="btn-icon" title="Désinstaller" disabled={busy} onClick={onUninstall}>
-                  <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
-                    <path d="M9 3a1 1 0 0 0-1 1v1H4a1 1 0 0 0 0 2h16a1 1 0 1 0 0-2h-4V4a1 1 0 0 0-1-1H9Zm-3 6h12l-.9 11.1A2 2 0 0 1 15.1 22H8.9a2 2 0 0 1-2-1.9L6 9Z" />
-                  </svg>
-                </button>
+                <>
+                  <button className="btn-icon" title="Ouvrir le dossier" disabled={busy} onClick={onOpenInstallDir}>
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
+                      <path d="M10 4H4a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V8a2 2 0 0 0-2-2h-8l-2-2Z" />
+                    </svg>
+                  </button>
+                  <button className="btn-icon" title="Désinstaller" disabled={busy} onClick={onUninstall}>
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
+                      <path d="M9 3a1 1 0 0 0-1 1v1H4a1 1 0 0 0 0 2h16a1 1 0 1 0 0-2h-4V4a1 1 0 0 0-1-1H9Zm-3 6h12l-.9 11.1A2 2 0 0 1 15.1 22H8.9a2 2 0 0 1-2-1.9L6 9Z" />
+                    </svg>
+                  </button>
+                </>
               )}
             </div>
 
@@ -150,7 +185,13 @@ export function Hero({ app, tab, onTab, progress, busy, onPrimary, onUninstall }
                   {app.latest.assetSize > 0 && <em> — {formatBytes(app.latest.assetSize)}</em>}
                 </span>
               ) : (
-                <span>{app.comingSoon ? 'Disponible prochainement' : app.error ? 'Version indisponible' : '…'}</span>
+                <span>
+                  {app.comingSoon
+                    ? 'Disponible prochainement'
+                    : app.error
+                      ? 'Version indisponible'
+                      : '…'}
+                </span>
               )}
             </div>
           </motion.section>
@@ -196,8 +237,44 @@ export function Hero({ app, tab, onTab, progress, busy, onPrimary, onUninstall }
         )}
       </AnimatePresence>
 
-      <footer className="hero-footer" data-tauri-drag-region>
-        <span>Z-FLIX</span>
+      <footer className="hero-footer">
+        <button className={`premium-toggle ${premiumOpen ? 'open' : ''}`} onClick={onTogglePremium}>
+          <span>PREMIUM</span>
+          <svg width="12" height="12" viewBox="0 0 12 12" fill="currentColor">
+            <path d="M2 4.5 6 8.5 10 4.5" fill="none" stroke="currentColor" strokeWidth="1.4" strokeLinecap="round" />
+          </svg>
+        </button>
+        <AnimatePresence>
+          {premiumOpen && (
+            <motion.div
+              className="premium-sheet"
+              initial={{ opacity: 0, y: 16 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: 12 }}
+              transition={{ duration: 0.2 }}
+            >
+              <div className="premium-title">Z-Flix Premium</div>
+              <p>
+                Accès VIP, lecture sans pubs, serveurs prioritaires et téléchargements hors-ligne.
+              </p>
+              <div className="premium-plans">
+                <div className="premium-plan">
+                  <strong>3 mois</strong>
+                  <span>2,99 €</span>
+                </div>
+                <div className="premium-plan featured">
+                  <strong>6 mois</strong>
+                  <span>4,99 €</span>
+                </div>
+                <div className="premium-plan">
+                  <strong>1 an</strong>
+                  <span>6,99 €</span>
+                </div>
+              </div>
+              <p className="premium-hint">Gère ton abonnement dans Paramètres → VIP de l’app installée.</p>
+            </motion.div>
+          )}
+        </AnimatePresence>
       </footer>
     </main>
   );

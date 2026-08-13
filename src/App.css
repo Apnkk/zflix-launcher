@@ -127,10 +127,17 @@ button:disabled {
   gap: 3px;
 }
 
+.rail-logo {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  background: #000;
+}
+
 .rail-icon {
   width: 42px;
   height: 42px;
-  border-radius: 12px;
+  border-radius: 50%;
   overflow: hidden;
   display: grid;
   place-items: center;
@@ -150,13 +157,6 @@ button:disabled {
   font-size: 19px;
   color: #fff;
   text-shadow: 0 1px 4px rgba(0, 0, 0, 0.4);
-}
-
-.rail-logo {
-  width: 100%;
-  height: 100%;
-  object-fit: contain;
-  background: #000;
 }
 
 .rail-placeholder {
@@ -227,18 +227,16 @@ button:disabled {
 }
 
 .hero-movies .hero-art {
-  background:
+  background-color: #0d0d13;
+  background-image:
     radial-gradient(ellipse 60% 55% at 78% 30%, rgba(229, 9, 20, 0.28), transparent 65%),
-    radial-gradient(ellipse 50% 60% at 15% 85%, rgba(20, 40, 120, 0.4), transparent 70%),
-    radial-gradient(ellipse 45% 40% at 60% 70%, rgba(120, 10, 30, 0.3), transparent 70%),
     linear-gradient(160deg, #14141c 0%, #0d0d13 55%, #16070a 100%);
 }
 
 .hero-anime .hero-art {
-  background:
+  background-color: #100c12;
+  background-image:
     radial-gradient(ellipse 55% 50% at 75% 25%, rgba(255, 92, 26, 0.3), transparent 65%),
-    radial-gradient(ellipse 50% 55% at 20% 80%, rgba(255, 120, 160, 0.18), transparent 70%),
-    radial-gradient(ellipse 40% 45% at 55% 60%, rgba(90, 30, 60, 0.35), transparent 70%),
     linear-gradient(165deg, #1a1016 0%, #100c12 55%, #180b06 100%);
 }
 
@@ -300,7 +298,7 @@ button:disabled {
   bottom: -4px;
   height: 2px;
   border-radius: 2px;
-  background: #ff4d2e;
+  background: var(--tab-accent, #ff4d2e);
 }
 
 /* Content */
@@ -326,7 +324,7 @@ button:disabled {
 .hero-mark {
   width: 72px;
   height: 72px;
-  border-radius: 18px;
+  border-radius: 50%;
   display: grid;
   place-items: center;
   font-size: 34px;
@@ -555,13 +553,95 @@ button:disabled {
 
 .hero-footer {
   position: relative;
-  z-index: 10;
+  z-index: 20;
   display: flex;
-  justify-content: center;
-  padding: 14px 0 16px;
+  flex-direction: column;
+  align-items: center;
+  padding: 0 0 14px;
+}
+
+.premium-toggle {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 14px;
   font-size: 11px;
   letter-spacing: 0.4em;
-  color: rgba(255, 255, 255, 0.35);
+  color: rgba(255, 255, 255, 0.45);
+  transition: color 0.15s;
+}
+
+.premium-toggle:hover,
+.premium-toggle.open {
+  color: rgba(255, 255, 255, 0.9);
+}
+
+.premium-toggle svg {
+  transition: transform 0.2s;
+}
+
+.premium-toggle.open svg {
+  transform: rotate(180deg);
+}
+
+.premium-sheet {
+  position: absolute;
+  bottom: 48px;
+  width: min(420px, calc(100% - 40px));
+  background: rgba(12, 12, 16, 0.92);
+  border: 1px solid var(--glass-border);
+  border-radius: 16px;
+  backdrop-filter: blur(18px);
+  padding: 18px 20px;
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.45);
+}
+
+.premium-title {
+  font-size: 15px;
+  font-weight: 700;
+  margin-bottom: 8px;
+}
+
+.premium-sheet > p {
+  font-size: 12.5px;
+  color: var(--text-dim);
+  line-height: 1.5;
+  margin-bottom: 14px;
+}
+
+.premium-plans {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 8px;
+  margin-bottom: 12px;
+}
+
+.premium-plan {
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 10px;
+  padding: 10px 8px;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  font-size: 12px;
+}
+
+.premium-plan.featured {
+  border-color: rgba(229, 9, 20, 0.55);
+  background: rgba(229, 9, 20, 0.12);
+}
+
+.premium-plan strong {
+  font-size: 11px;
+  color: var(--text-dim);
+  font-weight: 600;
+}
+
+.premium-hint {
+  font-size: 11px !important;
+  margin-bottom: 0 !important;
 }
 
 .hero-loading {

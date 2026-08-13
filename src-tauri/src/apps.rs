@@ -32,6 +32,10 @@ pub struct AppDef {
     #[serde(default)]
     pub accent: Option<String>,
     #[serde(default)]
+    pub artwork: Option<String>,
+    #[serde(default)]
+    pub icon: Option<String>,
+    #[serde(default)]
     pub coming_soon: bool,
     #[serde(default)]
     pub placeholder: bool,
@@ -387,6 +391,29 @@ pub async fn launch_app(app: AppHandle, app_id: String) -> Result<(), String> {
         .current_dir(&installed.install_dir)
         .spawn()
         .map_err(|e| e.to_string())?;
+    Ok(())
+}
+
+#[tauri::command]
+pub async fn open_install_dir(app: AppHandle, app_id: String) -> Result<(), String> {
+    let registry = read_registry(&app)?;
+    let installed = registry.apps.get(&app_id).ok_or("app non installée")?;
+    let dir = PathBuf::from(&installed.install_dir);
+    if !dir.exists() {
+        return Err("dossier d'installation introuvable".into());
+    }
+    #[cfg(windows)]
+    {
+        std::process::Command::new("explorer")
+            .arg(&dir)
+            .spawn()
+            .map_err(|e| e.to_string())?;
+    }
+    #[cfg(not(windows))]
+    {
+        let _ = dir;
+        return Err("non supporté sur cette plateforme".into());
+    }
     Ok(())
 }
 

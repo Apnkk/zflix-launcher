@@ -9,7 +9,9 @@
       "setupAsset": "Z-FLIX-Setup",
       "exeName": "Z-FLIX.exe",
       "dirName": "Z-FLIX",
-      "accent": "#e50914"
+      "accent": "#e50914",
+      "artwork": "/art/hero-movies.png",
+      "icon": "/logo.png"
     },
     {
       "id": "anime",
@@ -21,7 +23,9 @@
       "exeName": "Z-FLIX-ANIME.exe",
       "dirName": "Z-FLIX-ANIME",
       "accent": "#ff5c1a",
-      "comingSoon": true
+      "comingSoon": true,
+      "artwork": "/art/hero-anime.png",
+      "icon": "/art/icon-anime.png"
     },
     {
       "id": "slot3",

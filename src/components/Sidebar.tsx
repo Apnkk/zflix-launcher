@@ -16,6 +16,7 @@ function AppIcon({ app, active }: { app: AppState; active: boolean }) {
       </div>
     );
   }
+  const iconSrc = app.icon || (app.id === 'movies' ? '/logo.png' : null);
   return (
     <div
       className={`rail-icon ${active ? 'rail-active' : ''}`}
@@ -25,15 +26,15 @@ function AppIcon({ app, active }: { app: AppState; active: boolean }) {
           : undefined
       }
     >
-      {app.id === 'anime' ? (
+      {iconSrc ? (
+        <img className="rail-logo" src={iconSrc} alt="" draggable={false} />
+      ) : (
         <span
           className="rail-letter"
           style={{ background: `linear-gradient(135deg, ${accent}, ${accent}88)` }}
         >
-          ア
+          {app.name.charAt(0)}
         </span>
-      ) : (
-        <img className="rail-logo" src="/logo.png" alt="" draggable={false} />
       )}
     </div>
   );

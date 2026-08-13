@@ -18,6 +18,10 @@ export function uninstallApp(appId: string): Promise<void> {
   return invoke<void>('uninstall_app', { appId });
 }
 
+export function openInstallDir(appId: string): Promise<void> {
+  return invoke<void>('open_install_dir', { appId });
+}
+
 export function onInstallProgress(cb: (p: InstallProgress) => void): Promise<UnlistenFn> {
   return listen<InstallProgress>('install-progress', (e) => cb(e.payload));
 }

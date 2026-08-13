@@ -1,7 +1,14 @@
 import { useCallback, useEffect, useRef, useState } from 'react';
 import type { AppState, InstallProgress } from './types';
 import { appAction } from './types';
-import { downloadAndInstall, getAppsState, launchApp, onInstallProgress, uninstallApp } from './api';
+import {
+  downloadAndInstall,
+  getAppsState,
+  launchApp,
+  onInstallProgress,
+  openInstallDir,
+  uninstallApp,
+} from './api';
 import { Sidebar } from './components/Sidebar';
 import { Hero } from './components/Hero';
 import { TitleBar } from './components/TitleBar';
@@ -15,6 +22,7 @@ export default function App() {
   const [progress, setProgress] = useState<Record<string, InstallProgress | null>>({});
   const [busy, setBusy] = useState<Record<string, boolean>>({});
   const [settingsOpen, setSettingsOpen] = useState(false);
+  const [premiumOpen, setPremiumOpen] = useState(false);
   const [toast, setToast] = useState<string | null>(null);
   const toastTimer = useRef<number | undefined>(undefined);
 
@@ -54,9 +62,12 @@ export default function App() {
     try {
       if (action === 'launch') {
         await launchApp(active.id);
+        showToast(`${active.name} lancé.`);
       } else {
+        showToast(action === 'update' ? 'Mise à jour en cours…' : 'Téléchargement…');
         await downloadAndInstall(active.id);
         await refresh();
+        showToast(`${active.name} ${action === 'update' ? 'mis à jour' : 'installé'}.`);
       }
     } catch (e) {
       showToast(String(e));
@@ -81,6 +92,15 @@ export default function App() {
     }
   }, [active, refresh, showToast]);
 
+  const handleOpenDir = useCallback(async () => {
+    if (!active?.installed) return;
+    try {
+      await openInstallDir(active.id);
+    } catch (e) {
+      showToast(String(e));
+    }
+  }, [active, showToast]);
+
   return (
     <div className="shell">
       <TitleBar />
@@ -90,6 +110,7 @@ export default function App() {
         onSelect={(id) => {
           setActiveId(id);
           setTab('overview');
+          setPremiumOpen(false);
         }}
         onSettings={() => setSettingsOpen(true)}
       />
@@ -100,8 +121,11 @@ export default function App() {
           onTab={setTab}
           progress={progress[active.id] ?? null}
           busy={busy[active.id] ?? false}
+          premiumOpen={premiumOpen}
+          onTogglePremium={() => setPremiumOpen((v) => !v)}
           onPrimary={() => void handlePrimary()}
           onUninstall={() => void handleUninstall()}
+          onOpenInstallDir={() => void handleOpenDir()}
         />
       ) : (
         <main className="hero hero-loading">
