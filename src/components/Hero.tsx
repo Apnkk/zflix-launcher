@@ -85,10 +85,7 @@ export function Hero({ app, tab, onTab, progress, busy, onPrimary, onUninstall }
               <div
                 className="hero-mark"
                 style={{
-                  background:
-                    app.id === 'anime'
-                      ? `linear-gradient(135deg, ${accent}, ${accent}66)`
-                      : 'rgba(255,255,255,0.06)',
+                  background: app.id === 'anime' ? `linear-gradient(135deg, ${accent}, ${accent}66)` : '#000',
                 }}
               >
                 {app.id === 'anime' ? (

@@ -104,14 +104,13 @@ button:disabled {
   place-items: center;
   overflow: hidden;
   margin-bottom: 18px;
-  background: rgba(255, 255, 255, 0.04);
+  background: #000;
 }
 
 .rail-brand img {
   width: 100%;
   height: 100%;
   object-fit: contain;
-  padding: 3px;
 }
 
 .rail-apps {
@@ -157,8 +156,7 @@ button:disabled {
   width: 100%;
   height: 100%;
   object-fit: contain;
-  padding: 4px;
-  background: rgba(255, 255, 255, 0.04);
+  background: #000;
 }
 
 .rail-placeholder {
@@ -343,7 +341,6 @@ button:disabled {
   width: 100%;
   height: 100%;
   object-fit: contain;
-  padding: 8px;
 }
 
 .hero-eyebrow {
