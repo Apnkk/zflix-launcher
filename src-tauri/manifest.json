@@ -1,0 +1,43 @@
+{
+  "apps": [
+    {
+      "id": "movies",
+      "name": "Z-Flix Movies",
+      "eyebrow": "FILMS & SÉRIES",
+      "tagline": "Films et séries en streaming HD. Reprise de lecture, téléchargements hors-ligne, profils multiples et watch party.",
+      "repo": "Apnkk/z-flix-app",
+      "setupAsset": "Z-FLIX-Setup",
+      "exeName": "Z-FLIX.exe",
+      "dirName": "Z-FLIX",
+      "accent": "#e50914"
+    },
+    {
+      "id": "anime",
+      "name": "Z-Flix Animes",
+      "eyebrow": "アニメ",
+      "tagline": "Regarde des animes en VF et VOSTFR. Le catalogue complet en streaming, reprise de lecture et listes personnelles.",
+      "repo": "Apnkk/z-flix-anime",
+      "setupAsset": "Setup",
+      "exeName": "Z-FLIX-ANIME.exe",
+      "dirName": "Z-FLIX-ANIME",
+      "accent": "#ff5c1a",
+      "comingSoon": true
+    },
+    {
+      "id": "slot3",
+      "name": "Bientôt",
+      "eyebrow": "",
+      "tagline": "",
+      "comingSoon": true,
+      "placeholder": true
+    },
+    {
+      "id": "slot4",
+      "name": "Bientôt",
+      "eyebrow": "",
+      "tagline": "",
+      "comingSoon": true,
+      "placeholder": true
+    }
+  ]
+}
