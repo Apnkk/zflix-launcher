@@ -105,7 +105,7 @@ export default function App() {
         />
       ) : (
         <main className="hero hero-loading">
-          <div className="loading-mark">Z</div>
+          <img className="loading-mark" src="/logo.png" alt="Z-Flix" draggable={false} />
         </main>
       )}
       {settingsOpen && <SettingsModal onClose={() => setSettingsOpen(false)} />}

@@ -82,8 +82,20 @@ export function Hero({ app, tab, onTab, progress, busy, onPrimary, onUninstall }
             transition={{ duration: 0.25 }}
           >
             <div className="hero-id">
-              <div className="hero-mark" style={{ background: `linear-gradient(135deg, ${accent}, ${accent}66)` }}>
-                {app.id === 'anime' ? 'ア' : 'Z'}
+              <div
+                className="hero-mark"
+                style={{
+                  background:
+                    app.id === 'anime'
+                      ? `linear-gradient(135deg, ${accent}, ${accent}66)`
+                      : 'rgba(255,255,255,0.06)',
+                }}
+              >
+                {app.id === 'anime' ? (
+                  'ア'
+                ) : (
+                  <img src="/logo.png" alt="" draggable={false} />
+                )}
               </div>
               <div>
                 {app.eyebrow && (

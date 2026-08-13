@@ -40,7 +40,9 @@
     "windows": {
       "nsis": {
         "languages": ["French"],
-        "installMode": "currentUser"
+        "installMode": "currentUser",
+        "displayLanguageSelector": false,
+        "installerIcon": "icons/icon.ico"
       }
     }
   },

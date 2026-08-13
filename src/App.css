@@ -97,15 +97,21 @@ button:disabled {
 }
 
 .rail-brand {
-  width: 34px;
-  height: 34px;
-  border-radius: 9px;
+  width: 36px;
+  height: 36px;
+  border-radius: 10px;
   display: grid;
   place-items: center;
-  font-weight: 800;
-  font-size: 18px;
-  color: #3ddc84;
+  overflow: hidden;
   margin-bottom: 18px;
+  background: rgba(255, 255, 255, 0.04);
+}
+
+.rail-brand img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  padding: 3px;
 }
 
 .rail-apps {
@@ -145,6 +151,14 @@ button:disabled {
   font-size: 19px;
   color: #fff;
   text-shadow: 0 1px 4px rgba(0, 0, 0, 0.4);
+}
+
+.rail-logo {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  padding: 4px;
+  background: rgba(255, 255, 255, 0.04);
 }
 
 .rail-placeholder {
@@ -322,6 +336,14 @@ button:disabled {
   color: #fff;
   box-shadow: 0 10px 34px rgba(0, 0, 0, 0.5);
   text-shadow: 0 2px 6px rgba(0, 0, 0, 0.35);
+  overflow: hidden;
+}
+
+.hero-mark img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  padding: 8px;
 }
 
 .hero-eyebrow {
@@ -551,9 +573,10 @@ button:disabled {
 }
 
 .loading-mark {
-  font-size: 60px;
-  font-weight: 800;
-  color: rgba(255, 255, 255, 0.12);
+  width: 88px;
+  height: 88px;
+  object-fit: contain;
+  opacity: 0.55;
   animation: pulse 1.4s ease-in-out infinite;
 }
 

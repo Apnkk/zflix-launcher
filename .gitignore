@@ -12,6 +12,9 @@ dist
 dist-ssr
 *.local
 release-artifacts
+app-icon-1024.png
+src-tauri/gen
+src-tauri/target
 
 # Editor directories and files
 .vscode/*

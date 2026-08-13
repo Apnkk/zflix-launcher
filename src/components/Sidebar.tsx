@@ -25,12 +25,16 @@ function AppIcon({ app, active }: { app: AppState; active: boolean }) {
           : undefined
       }
     >
-      <span
-        className="rail-letter"
-        style={{ background: `linear-gradient(135deg, ${accent}, ${accent}88)` }}
-      >
-        {app.id === 'anime' ? 'ア' : 'Z'}
-      </span>
+      {app.id === 'anime' ? (
+        <span
+          className="rail-letter"
+          style={{ background: `linear-gradient(135deg, ${accent}, ${accent}88)` }}
+        >
+          ア
+        </span>
+      ) : (
+        <img className="rail-logo" src="/logo.png" alt="" draggable={false} />
+      )}
     </div>
   );
 }
@@ -39,7 +43,7 @@ export function Sidebar({ apps, activeId, onSelect, onSettings }: Props) {
   return (
     <aside className="rail">
       <div className="rail-brand">
-        <span>Z</span>
+        <img src="/logo.png" alt="Z-Flix" draggable={false} />
       </div>
       <div className="rail-apps">
         {apps.map((app) => (
